@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ej3</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../../../public/css/bootstrap/bootstrap.min.css">
+    
+</head>
+<body>
+    <br>
+    <div class="container mt-8 text-center sw-6 w-50">
+        <form action="verificaPass.php" method="post" class="form-singin" onsubmit="return validar()">
+            <h1 class="h5 ">Member Login</h1>
+            
+            <div class="form-group">
+                <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
+            </div>
+
+            <div class="form-group">
+                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+            </div>
+
+            <button type="submit" class="btn btn-success btn-lg btn-block">
+                Login
+            </button>
+        </form>
+    </div>
+
+    <br>
+    <div class="container text-center">
+        <p>
+            <a class="btn btn-primary" data-toggle="collapse" href="#puntoA" role="button" aria-expanded="false" aria-controls="puntoA">Punto A</a>
+            <a class="btn btn-primary" data-toggle="collapse" href="#puntoB" role="button" aria-expanded="false" aria-controls="puntoB">Punto B</a>
+            <a class="btn btn-primary" data-toggle="collapse" href="#puntoC" role="button" aria-expanded="false" aria-controls="puntoC">Punto C</a>
+          </p>
+          <div class="row">
+            <div class="col">
+              <div class="collapse multi-collapse" id="puntoA">
+                <div class="card card-body">
+                    Crear una nueva página php con un formulario HTML de login en la que solicitan el usuario
+                    y la password para loguearse. Los datos del formulario son enviados a un script
+                    verificaPass.php en el que contienen un arreglo asociativo por cada usuario del sistema. El
+                    arreglo asociativo tiene como claves: “usuario” y “clave”. El script debe visualizar un mensaje
+                    de bienvenida si los datos ingresados coinciden con alguno de los almacenados en el arreglo
+                    y en caso contrario un mensaje de error. 
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="collapse multi-collapse" id="puntoB">
+                <div class="card card-body">
+                    Realizar la validación de este formulario. Chequear no solo que se hayan cargado el
+                    usuario y la contraseña antes de ser enviados al servidor sino que también debe
+                    realizar un control de contraseña segura (La contraseña debe tener como mínimo 8
+                    caracteres, no puede ser igual que el nombre de usuario ingresado y debe contener
+                    letras y números).                   
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="collapse multi-collapse" id="puntoC">
+                <div class="card card-body">
+                    Aplicar Bootstrap de manera que la pantalla tenga un aspecto similar al siguiente:
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+
+    <script>
+        function validar()
+        {
+            var user = $("#username"), pass = $("#password"), valido = false;
+
+            if (user.val() != pass.val())
+            {
+                if (pass.val().length >= 8)
+                {
+                    valido = true;
+                }
+            }
+            else
+            {
+                user.addClass("is-invalid");
+                pass.addClass("is-invalid");
+            }
+
+            return valido;
+        }
+    </script>
+    
+    <!-- Jquery -->
+    <script src="../../../public/js/jquery/jquery-3.5.1.min.js"></script>
+    <!-- Popper -->
+    <script src="../../../public/js/popper/popper.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../../../public/js/bootstrap/bootstrap.min.js"></script>
+</body>
+</html>
