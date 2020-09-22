@@ -2,7 +2,7 @@
 /**
  * Alumno: Ezequiel Vera
  * Legajo: FAI-2172
- * Fecha: 13/09/2020
+ * Fecha: 22/09/2020
  * Descripción: Investigue y pruebe la validación de formularios usando alguna librería o framework
                 javaScript (JQuery, Mootools, Dojo, Prototype, etc).
  */
