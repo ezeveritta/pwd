@@ -5,12 +5,37 @@
  * Fecha: 22/09/2020
  */
 
-
-$Titulo = " Ejercicio 4"; 
+// Header y Lateral
+$Titulo = " Ejercicio 3"; 
 include_once("../estructura/cabecera.php");
 
+// Recolecto datos de GET o POST
 $datos = data_submitted();
-/**Y la Salida debe ser: */
+// Definimos Directorio donde se guarda el archivo
+$dir = "archivos/";
+$portada = $_FILES['portada'];
+
+
+// Verifico si hay datos
+if (count($datos) > 0)
+{
+    // Verifico que la portada es una imagen
+    $hayImagen = false;
+    //if (isset($datos['portada']))
+    //{
+        //if ($datos['portada']["type"] == "image/jpg")
+        //{
+            // Intentamos copiar el archivo al servidor.
+            if (!copy($portada['tmp_name'], "archivos/".$portada['name']))
+            {
+                echo "ERROR: no se pudo cargar la portada";
+            } else
+            {
+                $hayImagen = true;
+            }
+        //}
+    //}
+}
 
 ?>
 
@@ -24,6 +49,15 @@ $datos = data_submitted();
         
         <h2 class="text-primary">La Película introducida es:</h2>
 
+        <?php
+            if ($hayImagen)
+            {
+        ?>
+        <img src="archivos/<?php echo $portada["name"] ?>" alt="Portada de la película">
+
+        <?php
+            }
+        ?>
         <p><b>Titulo:</b> <?php echo $datos["titulo"] ?></p>
         <p><b>Actores:</b> <?php echo $datos["actores"] ?></p>
         <p><b>Director:</b> <?php echo $datos["director"] ?></p>

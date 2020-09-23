@@ -17,7 +17,7 @@ $datos = data_submitted();
                 de bienvenida si los datos ingresados coinciden con alguno de los almacenados en el arreglo
                 y en caso contrario un mensaje de error. */
 $usuarios = [
-    ["usuario" => "user1", "clave" => "12345678"],
+    ["usuario" => "user1", "clave" => "12345"],
     ["usuario" => "admin", "clave" => "admin"]
 ];
 

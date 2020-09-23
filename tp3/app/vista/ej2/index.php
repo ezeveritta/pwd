@@ -3,62 +3,33 @@
  * Alumno: Ezequiel Vera
  * Legajo: FAI-2172
  * Fecha: 22/09/2020
- * Descripción: Investigue y pruebe la validación de formularios usando alguna librería o framework
-                javaScript (JQuery, Mootools, Dojo, Prototype, etc).
+ * Descripción: Crear un formulario que permita subir un archivo. En el servidor se deberá controlar
+                que el tipo esperado sea txt (texto plano), si es correcto deberá abrir el archivo y mostrar su
+                contenido en un textarea.
+
  */
 
-$Titulo = " Ejercicio 1"; 
+$Titulo = " Ejercicio 2"; 
 include_once("../estructura/cabecera.php");
 ?>
 
-<div id="contenido" style="height: 450px; width: 89%; border: 2px solid red; border-radius: 5px;margin-left:10.5%;" >
-    <p>
-        Investigue y pruebe la validación de formularios usando alguna librería o framework
-        javaScript (JQuery, Mootools, Dojo, Prototype, etc).
-    </p>
 
-    
-    <form action="accion.php" name="form" id="form" method="get" style="width: 300px" onSubmit="return validar()">
-        <!-- Valor A -->
-        <div class="form-goup">
-            <label for="num1">Valor A:</label>
-            <input type="number" class="form-control" id="inp1" name="inp1"><br>
+<div class="w-50 shadow rounded"  style="height: 450px; width: 89%; border: 2px solid red; border-radius: 5px;margin-left:10.5%;">
+
+    <form class="form" action="accion.php" method="post" enctype="multipart/form-data">
+
+        <div class="form-group">
+            <label for="archivo">Subir Archivo</label>
+            <input type="file" name="miArchivo" id="miArchivo" class="form-control w-25">
         </div>
-        <!-- Valor B -->
-        <div class="form-goup">
-            <label for="num1">Valor B:</label>
-            <input type="number" class="form-control" id="inp2" name="inp2"><br>
-        </div>
-        <br>
-        <!-- Submit -->
-        <div class="form-goup">
-            <input type="submit" class="btn btn-primary" value="Enviar" ><br>
-        </div>
+
+        <button type="submit" class="btn btn-primary">Enviar</button>
+
     </form>
 
 </div>
 
 
-<script>
-    function validar()
-        {
-            var inp1 = $("#inp1"), inp2 = $("#inp2"), val = false;
-            
-            if (inp1.val() == inp2.val())
-            {
-                val = true;
-            }
-            else
-            {
-                inp2.addClass("is-invalid");
-                val = false;
-            }
-            console.log(val);
-            return val;
-        }
-    
-</script>
 <?php 
-
 include_once("../estructura/pie.php");
 ?>

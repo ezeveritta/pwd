@@ -1,21 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ej3</title>
+<?php 
+/**
+ * Alumno: Ezequiel Vera
+ * Legajo: FAI-2172
+ * Fecha: 22/09/2020
+ * Descripción: Crear un formulario que permita subir un archivo. En el servidor se deberá controlar
+                que el tipo esperado sea txt (texto plano), si es correcto deberá abrir el archivo y mostrar su
+                contenido en un textarea.
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="../../../public/css/bootstrap/bootstrap.min.css">
+ */
 
-    <!-- Icons -->
-    <link rel="stylesheet" href="../../../public/css/fonts/all.min.css">
-    
-</head>
-<body>
-    <br>
-    <div class="container shadow rounded">
-        <form action="accion.php" id="form_ej4" method="post" class="form-singin" data-toggle="validator">
+$Titulo = " Ejercicio 2"; 
+include_once("../estructura/cabecera.php");
+?>
+
+<div class="container shadow rounded">
+        <form action="accion.php" id="form_ej4" method="post" class="form-singin" data-toggle="validator"  enctype="multipart/form-data">
             <h5 class="h5 p-2 pl-4 bg-light text-primary font-weight-bold">Cinem@as</h5>
 
             <div class="row">
@@ -93,6 +92,12 @@
                     </div>
                 </div>
 
+
+                <div class="form-group col-md-6 mb-3">
+                    <label for="portada" class="font-weight-bold">Portada</label>
+                    <input type="file" id="portada" name="portada" class="form-control">
+                </div>
+
                 
                 <div class="form-group col-sm-12 mb-3">
                     <label for="sinopsis" class="font-weight-bold">Sinopsis</label>
@@ -110,16 +115,7 @@
             </div>
         </form>
     </div>
-    
-    <!-- Jquery -->
-    <script src="../../../public/js/jquery/jquery-3.5.1.min.js"></script>
-    <!-- Popper -->
-    <script src="../../../public/js/popper/popper.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="../../../public/js/bootstrap/bootstrap.min.js"></script>
-    <script src="../../../public/js/bootstrap/bootstrapValidator.js"></script>
 
-
-    <script src="../../../public/js/validator.js"></script>
-</body>
-</html>
+<?php 
+include_once("../estructura/pie.php");
+?>

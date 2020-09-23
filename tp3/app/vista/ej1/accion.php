@@ -2,59 +2,75 @@
 /**
  * Alumno: Ezequiel Vera
  * Legajo: FAI-2172
- * Fecha: 11/09/2020
- * Descripción: Crear una página con un formulario que contenga dos input de tipo text y un select. En
-                los inputs se ingresarán números y el select debe dar la opción de una operación
-                matemática que podrá resolverse usando los números ingresados. En la página que
-                procesa la información se debe mostrar por pantalla la operación seleccionada, cada
-                uno de los operandos y el resultado obtenido de resolver la operación. Ejemplo del
-                formulario:
+ * Fecha: 22/09/2020
+ * Descripción: En el servidor se deberá
+                controlar, antes de guardar el archivo, que los tipos validos son .doc o pdf y además el tamaño
+                máximo permitido es de 2mb. En caso que se cumplan las condiciones mostrar un link al archivo
+                cargado, en caso contrario mostrar un mensaje indicando el problema. 
+
 
  */
 
-$Titulo = " Ejercicio 1"; 
+$Titulo = " Ejercicio 1 - Resultado"; 
 include_once("../estructura/cabecera.php");
 
-// Enviar datos al controlador
-$datos = data_submitted();
+// Controlador
+include_once("../../control/ej1Control.php");
+$Control = new ej1Control();
 
-$dir = "archivos/"; // Definimos Directorio donde se guarda el archivo
-$archivo = $_FILES['miArchivo'];
+if (isset($_FILES['miArchivo']))
+{
+    // Obtener archivo del formulario
+    $archivo = $_FILES['miArchivo'];
+    // Definimos Directorio donde se guarda el archivo
+    $dir = "archivos/";
 
-print_r($archivo["error"]);
+    // Controlador
+    $Control->set_archivo($archivo);
+
+    // Validar tipo PDF o DOC
+    $validar = $Control->validar();
+    $resultado = false;
+    if ($validar == true)
+    {
+        if ($Control->subir())
+        {
+            $resultado = true;
+            $direccion = $Control->get_direccion();
+        }
+    }
+}
+
 
 ?>
 
-
-<div id="contenido" style="height: 450px; width: 89%; border: 2px solid red; border-radius: 5px;margin-left:10.5%;" >
-
-    <p>
-        <b>Respuesta: </b> 
-        <?php 
-            // Comprobamos que no se hayan producido errores
-            if ($archivo["error"] <= 0) 
-            {
-                echo "Nombre: " . $archivo['name'] . "<br />";
-                echo "Tipo: " . $archivo['type'] . "<br />";
-                echo "Tamaño: " . ($archivo["size"] / 1024) . " kB<br />";
-                echo "Carpeta temporal: " . $archivo['tmp_name']." <br />";
-
-                // Intentamos copiar el archivo al servidor.
-                if (!copy($archivo['tmp_name'], $dir.$archivo['name']))
+<div class="col-md-10">
+    <div class="row h-100">
+        <div class="col-sm-12 my-auto text-center">
+            
+                <?php 
+                if ($resultado)
                 {
-                    echo "ERROR: no se pudo cargar el archivo";
-                } else
-                {
-                    echo "El archivo " . $archivo["name"] . " se ha copiado con Éxito <br />";
-                    echo '<a href="' . $dir.$archivo['name'] . '" >link al archivo</a>';
+                ?>
+                    <div class="alert alert-info w-75 mx-auto mt-5" role="alert">
+                        <h6>Archivo subido correctamente!</h6> <br>";
+                        <a href="<?php echo $direccion ?>" target="_blank">Ir al archivo</a>
+                    </div>
+                <?php
                 }
-            } else
-            {
-                echo "ERROR: no se pudo cargar el archivo. No se pudo acceder al archivo Temporal";
-            }
-        ?>
-    </p>
+                else
+                {
+                ?>
+                    <div class="alert alert-warning w-75 mx-auto mt-5" role="alert">
+                        <h6>Error al subir el archivo!</h6> <br>";
+                        <p><?php echo $validar ?></p>
+                    </div>
+                <?php
+                }
+                ?>
 
+        </div>
+    </div>
 </div>
 
 <?php 

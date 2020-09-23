@@ -2,33 +2,53 @@
 /**
  * Alumno: Ezequiel Vera
  * Legajo: FAI-2172
- * Fecha: 11/09/2020
- * Descripción: Crear una página con un formulario que contenga dos input de tipo text y un select. En
-                los inputs se ingresarán números y el select debe dar la opción de una operación
-                matemática que podrá resolverse usando los números ingresados. En la página que
-                procesa la información se debe mostrar por pantalla la operación seleccionada, cada
-                uno de los operandos y el resultado obtenido de resolver la operación. Ejemplo del
-                formulario:
+ * Fecha: 22/09/2020
+ * Descripción: Crear un formulario que permita subir un archivo. En el servidor se deberá controlar
+                que el tipo esperado sea txt (texto plano), si es correcto deberá abrir el archivo y mostrar su
+                contenido en un textarea.
+
 
  */
 
-$Titulo = " Ejercicio 3"; 
+$Titulo = " Ejercicio 1"; 
 include_once("../estructura/cabecera.php");
-include_once("../../control/ej1Control.php");
 
-// Enviar datos al controlador
-$datos = data_submitted();
-$control = new ej1Control();
+$dir = "archivos/"; // Definimos Directorio donde se guarda el archivo
+$archivo = $_FILES['miArchivo'];
 
-$respuesta = $control->validar($datos);
 ?>
 
 
 <div id="contenido" style="height: 450px; width: 89%; border: 2px solid red; border-radius: 5px;margin-left:10.5%;" >
-
     <p>
-        <b>Respuesta: </b> 
-        <?php echo $respuesta ?>
+        <?php 
+            if ($archivo["error"] <= 0) 
+            {
+                // Verificamos las consignas
+                if ($archivo["type"] == 'text/plain')
+                {
+                    // Intentamos copiar el archivo al servidor.
+                    if (!copy($archivo['tmp_name'], $dir.$archivo['name']))
+                    {
+                        echo "ERROR: no se pudo cargar el archivo";
+                    } else
+                    {
+                        echo "El archivo " . $archivo["name"] . " se ha copiado con Éxito <br />";
+                        echo '<a href="' . $dir.$archivo['name'] . '" >link al archivo</a>';
+
+                        echo "<br><textarea>". file_get_contents("archivos/".$archivo["name"]) ."</textarea>";
+                    }
+                }
+                else
+                {
+                    echo "ERROR: El archivo no es TXT.";
+                }
+            }
+            else
+            {
+                echo "Se produjo un error.";
+            }
+        ?>
     </p>
 
 </div>

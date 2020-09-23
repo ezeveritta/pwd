@@ -1,7 +1,12 @@
-
-    <div class="hidee" style="height: 80px; width: 100%; border: 2px solid red; border-radius: 5px;"> 
-        <h1>Este es el Pie</h1> 
+        </div>
     </div>
+
+    <!-- Pie de Página -->
+    <footer class="footer fixed-bottom bg-dark p-2">
+      <div class="container text-center">
+        <span class="text-muted">Ezequiel Vera · FAI-2172 · 2020.</span>
+      </div>
+    </footer>
     
     
     <!-- Bootstrap -->
