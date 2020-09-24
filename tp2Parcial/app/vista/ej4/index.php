@@ -72,6 +72,7 @@ include_once("../estructura/cabecera.php");
                         <div class="form-group col-md-4 mb-3">
                             <label for="genero" class="font-weight-bold">Género</label>
                             <select name="genero" id="genero" class="form-control">
+                                <option value="accion">Acción</option>
                                 <option value="Comedia">Comedia</option>
                                 <option value="Comedia">Drama</option>
                                 <option value="Comedia">Terror</option>
