@@ -11,7 +11,7 @@
     <div class="contain">
         <div class="w-100 text-center"><h3>Trabajos Prácticos</h3></div>
         <!-- Originales -->
-        <div class="row w-75 mx-auto">
+        <div class="row w-75 mx-auto" style="opacity: .6">
             <div class="col col-sm-4 p-5">
                 <div class="card">
                     <div class="card-header">

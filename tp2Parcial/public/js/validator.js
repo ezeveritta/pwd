@@ -118,8 +118,11 @@ $("#form_ej3").bootstrapValidator({
 
             validators: {
                 notEmpty: {
-                    message: "Se requiere una contraseña.",
-                    minlength: 8
+                    message: "Se requiere una contraseña."
+                },
+                stringLength: {
+                    min: 8,
+                    message: "La contraseña debe tener 8 o más carácteres."
                 }
             }
         }
