@@ -1,6 +1,9 @@
-$("#form_ej4").bootstrapValidator({
+////////////////////////////////////////////////////////////////////////////////////////////
+//// Ejercicio 1
 
-    message: "Valor invalido",
+$("#form_ej1").bootstrapValidator({
+
+    message: "Archivo invalido.",
 
     feedbackIcons: {
         valid: "fal fa-inverse",
@@ -10,7 +13,61 @@ $("#form_ej4").bootstrapValidator({
 
     fields: {
 
-        titulo: {
+        miArchivo: {
+
+            validators: {
+                notEmpty: {
+                    message: "Seleccione un archivo."
+                }
+            }
+        }
+    }
+
+});
+
+////////////////////////////////////////////////////////////////////////////////////////////
+//// Ejercicio 2
+
+$("#form_ej2").bootstrapValidator({
+
+    message: "Archivo invalido.",
+
+    feedbackIcons: {
+        valid: "fal fa-inverse",
+        validating: "fa fa-wifi-1",
+        invalid: "fa fa-times"
+    },
+
+    fields: {
+
+        miArchivo: {
+
+            validators: {
+                notEmpty: {
+                    message: "Seleccione un archivo."
+                }
+            }
+        }
+    }
+
+});
+
+////////////////////////////////////////////////////////////////////////////////////////////
+//// Ejercicio 3
+
+$("#form_ej3").bootstrapValidator({
+
+    message: "Archivo invalido.",
+
+    feedbackIcons: {
+        valid: "fal fa-inverse",
+        validating: "fa fa-wifi-1",
+        invalid: "fa fa-times"
+    },
+
+    fields: {
+
+        miArchivo: {
 
             validators: {
                 notEmpty: {
@@ -110,5 +167,6 @@ $("#form_ej4").bootstrapValidator({
         }
 
     }
+    
 
 });

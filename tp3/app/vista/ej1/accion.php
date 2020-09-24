@@ -28,16 +28,26 @@ if (isset($_FILES['miArchivo']))
     // Controlador
     $Control->set_archivo($archivo);
 
-    // Validar tipo PDF o DOC
+    // Validar tipo PDF o DOC y peso menor a 2MB
     $validar = $Control->validar();
     $resultado = false;
-    if ($validar == true)
+    if ($validar === true)
     {
-        if ($Control->subir())
+        $subir = $Control->subir();
+        if ($subir === true)
         {
             $resultado = true;
             $direccion = $Control->get_direccion();
         }
+        else
+        {
+            $error = $subir;
+            $resultado = false;
+        }
+    }
+    else
+    {
+        $error = $validar;
     }
 }
 
@@ -46,14 +56,14 @@ if (isset($_FILES['miArchivo']))
 
 <div class="col-md-10">
     <div class="row h-100">
-        <div class="col-sm-12 my-auto text-center">
+        <div class="col-sm-12 text-center">
             
                 <?php 
                 if ($resultado)
                 {
                 ?>
                     <div class="alert alert-info w-75 mx-auto mt-5" role="alert">
-                        <h6>Archivo subido correctamente!</h6> <br>";
+                        <h6>Archivo subido correctamente!</h6> <br>
                         <a href="<?php echo $direccion ?>" target="_blank">Ir al archivo</a>
                     </div>
                 <?php
@@ -62,8 +72,8 @@ if (isset($_FILES['miArchivo']))
                 {
                 ?>
                     <div class="alert alert-warning w-75 mx-auto mt-5" role="alert">
-                        <h6>Error al subir el archivo!</h6> <br>";
-                        <p><?php echo $validar ?></p>
+                        <h6>Error al subir el archivo!</h6><br>
+                        <p><?php echo $error ?></p>
                     </div>
                 <?php
                 }

@@ -4,13 +4,12 @@
     <div class="row h-100">
       
         <!-- Lateral -->
-        <br><br><br>
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar h-100">
+        <nav class="col-md-2 d-none d-md-block bg-dark sidebar h-100">
           <div class="sidebar-sticky">
-            <ul class="nav flex-column">
+            <ul class="nav flex-column mt-3">
                 <li class="nav-item">
                     <a class="nav-link active" href="../ej1/index.php">
-                         <img src="https://www.flaticon.es/svg/static/icons/svg/484/484018.svg" width="12" height="12">
+                         <i class="fas fa-chevron-right"></i>
                          <span class="ml-2">
                              Ejercicio N°1 <span class="sr-only">(current)</span>
                          </span>
@@ -19,7 +18,7 @@
                </li>
                <li class="nav-item">
                     <a class="nav-link" href="../ej2/index.php">
-                         <img src="https://www.flaticon.es/svg/static/icons/svg/484/484018.svg" width="12" height="12">
+                         <i class="fas fa-chevron-right"></i>
                          <span class="ml-2">
                              Ejercicio N°2
                          </span>
@@ -27,7 +26,7 @@
               </li>
                <li class="nav-item">
                     <a class="nav-link" href="../ej3/index.php">
-                         <img src="https://www.flaticon.es/svg/static/icons/svg/484/484018.svg" width="12" height="12">
+                         <i class="fas fa-chevron-right"></i>
                          <span class="ml-2">
                              Ejercicio N°3
                          </span>

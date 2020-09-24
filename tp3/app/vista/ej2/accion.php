@@ -13,44 +13,75 @@
 $Titulo = " Ejercicio 1"; 
 include_once("../estructura/cabecera.php");
 
-$dir = "archivos/"; // Definimos Directorio donde se guarda el archivo
-$archivo = $_FILES['miArchivo'];
+// Controlador
+include_once("../../control/ej2Control.php");
+$Control = new ej2Control();
+
+if (isset($_FILES['miArchivo']))
+{
+    // Obtener archivo del formulario
+    $archivo = $_FILES['miArchivo'];
+    // Definimos Directorio donde se guarda el archivo
+    $dir = "archivos/";
+
+    // Controlador
+    $Control->set_archivo($archivo);
+
+    // Validar tipo PDF o DOC y peso menor a 2MB
+    $validar = $Control->validar();
+    $resultado = false;
+    if ($validar === true)
+    {
+        $subir = $Control->subir();
+        if ($subir === true)
+        {
+            $resultado = true;
+            $direccion = $Control->get_direccion();
+        }
+        else
+        {
+            $error = $subir;
+            $resultado = false;
+        }
+    }
+    else
+    {
+        $error = $validar;
+    }
+}
 
 ?>
 
-
-<div id="contenido" style="height: 450px; width: 89%; border: 2px solid red; border-radius: 5px;margin-left:10.5%;" >
-    <p>
-        <?php 
-            if ($archivo["error"] <= 0) 
-            {
-                // Verificamos las consignas
-                if ($archivo["type"] == 'text/plain')
+<div class="col-md-10">
+    <div class="row h-100">
+        <div class="col-sm-12 text-center">
+            
+                <?php 
+                if ($resultado)
                 {
-                    // Intentamos copiar el archivo al servidor.
-                    if (!copy($archivo['tmp_name'], $dir.$archivo['name']))
-                    {
-                        echo "ERROR: no se pudo cargar el archivo";
-                    } else
-                    {
-                        echo "El archivo " . $archivo["name"] . " se ha copiado con Éxito <br />";
-                        echo '<a href="' . $dir.$archivo['name'] . '" >link al archivo</a>';
-
-                        echo "<br><textarea>". file_get_contents("archivos/".$archivo["name"]) ."</textarea>";
-                    }
+                ?>
+                    <div class="alert alert-info w-75 mx-auto mt-5" role="alert">
+                        <h6>Archivo subido correctamente!</h6> <br>
+                        <a href="<?php echo $direccion ?>" target="_blank">Ir al archivo</a>
+                        <textarea name="texto" id="texto" class="text-area w-100" rows="10">
+                            <?php echo $Control->get_descripcion(); ?>
+                        </textarea>
+                    </div>
+                <?php
                 }
                 else
                 {
-                    echo "ERROR: El archivo no es TXT.";
+                ?>
+                    <div class="alert alert-warning w-75 mx-auto mt-5" role="alert">
+                        <h6>Error al subir el archivo!</h6><br>
+                        <p><?php echo $error ?></p>
+                    </div>
+                <?php
                 }
-            }
-            else
-            {
-                echo "Se produjo un error.";
-            }
-        ?>
-    </p>
+                ?>
 
+        </div>
+    </div>
 </div>
 
 <?php 

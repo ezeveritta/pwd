@@ -14,19 +14,19 @@ $Titulo = " Ejercicio 1";
 include_once("../estructura/cabecera.php");
 ?>
 
-
 <div class="col-md-10">
     <div class="row h-100">
         <div class="col-sm-12 my-auto text-center">
             
             <div class="card card-block w-50 mx-auto">
-                <form class="form w-100" action="accion.php" method="post" enctype="multipart/form-data">
+                <form class="form w-100" action="accion.php" id="form_ej1" name="form_ej1" method="post" enctype="multipart/form-data" data-toggle="validator">
 
                     <h5 class="mt-3">Cargar documento (.pdf o .doc)</h5>
 
                     <div class="custom-file mt-3 w-75">
                         <input type="file" name="miArchivo" class="custom-file-input" id="miArchivo" multiple lang="ar" dir="rtl">
                         <label class="custom-file-label text-left" for="miArchivo">Subir Archivo</label>
+                        <div class="invalid-feedback"></div>
                     </div>
 
                     <button type="submit" class="btn btn-primary btn-lg mt-3 mb-3 w-75">Enviar</button>
