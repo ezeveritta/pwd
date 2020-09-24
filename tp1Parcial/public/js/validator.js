@@ -47,6 +47,11 @@ $("#form_ej2").bootstrapValidator({
             validators: {
                 integer: {
                     message: "El valor debe ser numérico."
+                },
+                between: {
+                    min: 0,
+                    max: 23,
+                    message: 'Debe ser de 0 a 23.'
                 }
             }
         },
@@ -56,6 +61,11 @@ $("#form_ej2").bootstrapValidator({
             validators: {
                 integer: {
                     message: "El valor debe ser numérico."
+                },
+                between: {
+                    min: 0,
+                    max: 23,
+                    message: 'Debe ser de 0 a 23.'
                 }
             }
         },
@@ -65,6 +75,11 @@ $("#form_ej2").bootstrapValidator({
             validators: {
                 integer: {
                     message: "El valor debe ser numérico."
+                },
+                between: {
+                    min: 0,
+                    max: 23,
+                    message: 'Debe ser de 0 a 23.'
                 }
             }
         },
@@ -74,6 +89,11 @@ $("#form_ej2").bootstrapValidator({
             validators: {
                 integer: {
                     message: "El valor debe ser numérico."
+                },
+                between: {
+                    min: 0,
+                    max: 23,
+                    message: 'Debe ser de 0 a 23.'
                 }
             }
         },
@@ -83,6 +103,11 @@ $("#form_ej2").bootstrapValidator({
             validators: {
                 integer: {
                     message: "El valor debe ser numérico."
+                },
+                between: {
+                    min: 0,
+                    max: 23,
+                    message: 'Debe ser de 0 a 23.'
                 }
             }
         }
