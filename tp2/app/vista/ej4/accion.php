@@ -6,7 +6,7 @@
  */
 
 
-$Titulo = " Ejercicio 4"; 
+$Titulo = "Resultado -  Ejercicio 4"; 
 include_once("../estructura/cabecera.php");
 
 $datos = data_submitted();
