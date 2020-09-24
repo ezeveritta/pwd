@@ -196,6 +196,13 @@ $("#form_ej4").bootstrapValidator({
             validators: {
                 notEmpty: {
                     message: "Se requiere una fecha."
+                },
+                integer: {
+                    message: "Debe ser numérico."
+                },
+                stringLength: {
+                    max: 4,
+                    message: "Maximo 4 números."
                 }
             }
         },
@@ -223,6 +230,13 @@ $("#form_ej4").bootstrapValidator({
             validators: {
                 notEmpty: {
                     message: "Se requiere la duración de la obra."
+                },
+                integer: {
+                    message: "Debe ser numérico."
+                },
+                stringLength: {
+                    max: 3,
+                    message: "Maximo 3 números."
                 }
             }
         },
