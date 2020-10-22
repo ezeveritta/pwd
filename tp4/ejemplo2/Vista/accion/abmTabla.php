@@ -4,6 +4,7 @@ $datos = data_submitted();
 //verEstructura($datos);
 $resp = false;
 $objTrans = new AbmTabla();
+
 if (isset($datos['accion'])){
     if($datos['accion']=='editar'){
         if($objTrans->modificacion($datos)){
@@ -39,7 +40,8 @@ if (isset($datos['accion'])){
 </head>
 <body>
 <h3>Tabla</h3>
-<br><a href="../ftabla.php">Volver</a><br>
+<br>
+<a href="../ftabla.php">Volver</a><br>
 
 <?php	
 echo $mensaje;

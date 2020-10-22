@@ -10,8 +10,10 @@
  */
 
 include_once('../../modelos/Auto.php');
+include_once('../../modelos/Persona.php');
 
 $autos = Auto::listar();
+$personas = Persona::listar();
 
 ?>
 <!DOCTYPE html>
@@ -22,32 +24,63 @@ $autos = Auto::listar();
     <title>TEST AUTO ORM</title>
 </head>
 <body>
-<h1>TEST ORM AUTO</h1>
-<div>
-    <table style="width: 50%">
-        <tr>
-            <th>Patente</th>
-            <th>Marca</th>
-            <th>Modelo</th>
-            <th>DNI Dueño</th>
-        </tr>
+    <h1>TEST ORM AUTO</h1>
+    <div>
+        <table style="width: 50%">
+            <tr>
+                <th>Patente</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>DNI Dueño</th>
+            </tr>
 
-        <?php
-            // Por cada auto
-            foreach ($autos as $a)
-            {
-                echo "<tr>";
+            <?php
+                // Por cada auto
+                foreach ($autos as $a)
+                {
+                    echo "<tr>";
 
-                echo "<td>" . $a->getPatente() . "</td>";
-                echo "<td>" . $a->getMarca() . "</td>";
-                echo "<td>" . $a->getModelo() . "</td>";
-                echo "<td>" . $a->getDniDuenio() . "</td>";
+                    echo "<td>" . $a->getPatente() . "</td>";
+                    echo "<td>" . $a->getMarca() . "</td>";
+                    echo "<td>" . $a->getModelo() . "</td>";
+                    echo "<td>" . $a->getDniDuenio() . "</td>";
 
-                echo "</tr>";
-            }
-        ?>
-    </table>
-</div>
+                    echo "</tr>";
+                }
+            ?>
+        </table>
+    </div>
+
+    <h1>TEST ORM PERSONAS</h1>
+    <div>
+        <table style="width: 50%">
+            <tr>
+                <th>NroDNI</th>
+                <th>Apellido</th>
+                <th>Nombre</th>
+                <th>Fecha Nacimiento</th>
+                <th>Teléfono</th>
+                <th>Domicilio</th>
+            </tr>
+
+            <?php
+                // Por cada persona
+                foreach ($personas as $p)
+                {
+                    echo "<tr>";
+
+                    echo "<td>" . $p->getNroDNI() . "</td>";
+                    echo "<td>" . $p->getApellido() . "</td>";
+                    echo "<td>" . $p->getNombre() . "</td>";
+                    echo "<td>" . $p->getFechaNac() . "</td>";
+                    echo "<td>" . $p->getTelefono() . "</td>";
+                    echo "<td>" . $p->getDomicilio() . "</td>";
+
+                    echo "</tr>";
+                }
+            ?>
+        </table>
+    </div>
 <style>
 table, th, td {
   border: 1px solid black;

@@ -2,7 +2,7 @@
 /**
  * Alumno: Ezequiel Vera
  * Legajo: FAI-2172
- * Fecha: 01/10/2020
+ * Fecha: 21/10/2020
  * Descripcion:  Crear la capa de los datos, implementando el ORM (Modelo de datos) para la base de datos
  *               entregada. Recordar que se debe generar al menos, un clase php por cada tabla. Cada clase debe contener
  *               las variables de instancia y sus metodos get y set; ademas de los metodos que nos permitan seleccionar,
@@ -10,31 +10,36 @@
  */
 
 include_once('conector/BaseDatos.php');
-class Auto
+class Persona
 {
-    private $patente;   // varchar(10) KEY
-    private $marca;     // varchar(50)
-    private $modelo;    // int(11)
-    private $dniDuenio; // varchar(10)	
-    private $mensajeoperacion;
+    private $nroDni;    // varchar(10) PRIMARY KEY
+    private $apellido;  // varchar(50)
+    private $nombre;    // varchar(50)
+    private $fechaNac;  // date	
+    private $telefono;  // varchar(20)
+    private $domicilio; // varchar(200)
     
     public function __construct()
     {
-        $this->patente = "";
-        $this->marca = "";
-        $this->modelo = 0;
-        $this->dniDuenio = "";
+        $this->nroDni = "";
+        $this->apellido = "";
+        $this->nombre = "";
+        $this->fechaNac = "";
+        $this->telefono = "";
+        $this->domicilio = "";
     }
 
     /**
      * Cargar datos al objetos
      */
-    public function cargar($patente, $marca, $modelo, $dniDuenio)
+    public function cargar($nroDni, $apellido, $nombre, $fechaNac, $telefono, $domicilio)
     {
-        $this->setPatente($patente);
-        $this->setMarca($marca);
-        $this->setModelo($modelo);
-        $this->setDniDuenio($dniDuenio);
+        $this->setNroDni($nroDni);
+        $this->setApellido($apellido);
+        $this->setNombre($nombre);
+        $this->setFechaNac($fechaNac);
+        $this->setTelefono($telefono);
+        $this->setDomicilio($domicilio);
     }
 
 
@@ -44,10 +49,10 @@ class Auto
      * 
      * @return boolean
      */
-    public function buscar($patente)
+    public function buscar($nroDni)
     {
         $bd = new BaseDatos();
-		$query = "SELECT * from auto where patente=".$patente;
+		$query = "SELECT * from persona where NroDni=".$nroDni;
         $output = false;
         
         // Inicio conexión con bd
@@ -59,10 +64,12 @@ class Auto
                 // Recupero la información
                 if($row2 = $bd->Registro())
                 {
-				    $this->setPatente($patente);
-					$this->setMarca($row2['Marca']);
-					$this->setModel($row2['Modelo']);
-					$this->setDniDuenio($row2['DniDuenio']);
+				    $this->setNroDni($nroDni);
+					$this->setApellido($row2['Apellido']);
+					$this->setNombre($row2['Nombre']);
+					$this->setFechaNac($row2['fechaNac']);
+					$this->setTelefono($row2['Telefono']);
+					$this->setDomicilio($row2['Domicilio']);
 					$output= true;
 				}				
 			
@@ -80,50 +87,53 @@ class Auto
     /**
      * Retornar toda la información de la base de datos
      * @param string $where
-     * 
+     * @param string $order
      * @return array
      */
-    public static function listar($where="")
+    public static function listar($where="", $order="Apellido")
     {
-	    $Autos = null;
+	    $Personas = null;
 		$bd = new BaseDatos();
-        $query = "Select * from auto";
+        $query = "Select * from persona";
         
 		if ($where != "")
             $query = $query.' where '.$where;
         
-        $query.=" order by marca ";
-                
+        $query.=" order by ".$order;
+        
+        
         // Iniciamos conexión con bd
         if($bd->Iniciar())
         {
             // Ejecutamos la consulta
             if($bd->Ejecutar($query))
             {				
-				$Autos = array();
+				$Personas = array();
                 while($row2 = $bd->Registro())
                 {
-				    $patente = $row2['Patente'];
-					$marca = $row2['Marca'];
-					$modelo = $row2['Modelo'];
-					$dniDuenio = $row2['DniDuenio'];
+				    $nroDni = $row2['NroDni'];
+					$apellido = $row2['Apellido'];
+					$nombre = $row2['Nombre'];
+					$fechaNac = $row2['fechaNac'];
+					$telefono = $row2['Telefono'];
+					$domicilio = $row2['Domicilio'];
                 
                     // Creamos el nuevo objeto Auto con los datos obtenidos
-					$tmp_auto = new Auto();
-                    $tmp_auto->cargar($patente,$marca,$modelo,$dniDuenio);
+					$tmp_persona = new Persona();
+                    $tmp_persona->cargar($nroDni,$apellido,$nombre,$fechaNac,$telefono,$domicilio);
                     // Agregamos al arreglo
-					array_push($Autos,$tmp_auto);
+					array_push($Personas,$tmp_persona);
 				}
             } else
             {
-		 		$Autos = $bd->getError();
+		 		$Personas = $bd->getError();
 			}
         } else
         {
-            $Autos = $bd->getError();
+            $Personas = $bd->getError();
         }
 
-		return $Autos;
+		return $Personas;
 	}	
 
     /**
@@ -134,16 +144,16 @@ class Auto
     {
 		$bd     = new BaseDatos();
 		$output = false;
-		$query  = "INSERT INTO auto(marca, modelo, dniDuenio) 
-				   VALUES (".$this->getMarca()."','".$this->getModelo()."','".$this->getDniDuenio()."')";
+		$query  = "INSERT INTO persona(NroDni, Apellido, Nombre, fechaNac, Telefono, Domicilio) 
+				   VALUES ('".$this->getNroDni()."','".$this->getApellido()."','".$this->getNombre()."','".$this->getFechaNac()."','".$this->getTelefono()."','".$this->getDomicilio()."')";
         
         // Iniciamos conexión
         if($bd->Iniciar())
         {
             // Ejecutamos consulta
-            if($patente = $bd->devuelveIDInsercion($query))
+            if($nroDni = $bd->Ejecutar($query))
             {
-                $this->setPatente($patente);
+                $this->setNroDni($nroDni);
 			    $output = true;
             } else
             {
@@ -165,8 +175,9 @@ class Auto
     public function modificar(){
 	    $output = false; 
 	    $bd = new BaseDatos();
-		$query = "UPDATE auto SET Patente='".$this->getPatente()."',Marca='".$this->getMarca()
-               ."',Modelo='".$this->getModelo()."',DniDuenio=". $this->getDniDuenio()." WHERE Patente".$this->getPatente();
+		$query = "UPDATE persona SET NroDni='".$this->getNroDni()."',Apellido='".$this->getApellido()
+               ."',Nombre='".$this->getNombre()."',fechaNac=". $this->getFechaNac()
+               ."',Telefono=". $this->getTelefono()."',Domicilio=". $this->getDomicilio()." WHERE NroDni".$this->getNroDni();
 
         // Iniciamos conexión
         if($bd->Iniciar())
@@ -188,7 +199,7 @@ class Auto
 	}
 
     /**
-     * Con ésta función eliminamos una tupla según la patente dada.
+     * Con ésta función eliminamos una tupla según la NroDni dada.
      * @return boolean
      */
     public function eliminar(){
@@ -198,7 +209,7 @@ class Auto
         // Iniciamos conexión
         if($bd->Iniciar())
         {
-            $query = "DELETE FROM auto WHERE patente=".$this->getPatente();
+            $query = "DELETE FROM persona WHERE NroDni=".$this->getNroDni();
 
             // Ejecutamos consulta
             if($bd->Ejecutar($query))
@@ -218,42 +229,58 @@ class Auto
 
 
     // Metodos de Acceso
-    public function getPatente()
+    public function getNroDni()
     {
-        return $this->patente;
+        return $this->nroDni;
     }
-    public function getMarca()
+    public function getApellido()
     {
-        return $this->marca;
+        return $this->apellido;
     }
-    public function getModelo()
+    public function getNombre()
     {
-        return $this->modelo;
+        return $this->nombre;
     }
-    public function getDniDuenio()
+    public function getFechaNac()
     {
-        return $this->dniDuenio;
+        return $this->fechaNac;
+    }
+    public function getTelefono()
+    {
+        return $this->telefono;
+    }
+    public function getDomicilio()
+    {
+        return $this->domicilio;
     }
     public function getMensajeOperacion()
     {
         return $this->mensajeOperacion;
     }
 
-    public function setPatente($data)
+    public function setNroDni($data)
     {
-        $this->patente = $data;
+        $this->nroDni = $data;
     }
-    public function setMarca($data)
+    public function setApellido($data)
     {
-        $this->marca = $data;
+        $this->apellido = $data;
     }
-    public function setModelo($data)
+    public function setNombre($data)
     {
-        $this->modelo = $data;
+        $this->nombre = $data;
     }
-    public function setDniDuenio($data)
+    public function setFechaNac($data)
     {
-        $this->dniDuenio = $data;
+        $this->fechaNac = $data;
+    }
+    public function setTelefono($data)
+    {
+        $this->telefono = $data;
+    }
+    public function setDomicilio($data)
+    {
+        $this->domicilio = $data;
     }
     public function setMensajeOperacion($data)
     {
@@ -262,10 +289,12 @@ class Auto
 
     public function __toString()
     {
-        return "OBJ Auto: "
-           . "\n- Patente: " . $this->getPatente()
-           . "\n- Marca: " . $this->getMarca()
-           . "\n- Modelo: " . $this->getModelo()
-           . "\n- Dni del propietario: " . $this->getDniDuenio();
+        return "OBJ Persona: "
+           . "\n- NroDni: " . $this->getNroDni()
+           . "\n- Apellido: " . $this->getApellido()
+           . "\n- Nombre: " . $this->getNombre()
+           . "\n- Fecha Nacimiento: " . $this->getFechaNac()
+           . "\n- Teléfono: " . $this->getTelefono()
+           . "\n- Domicilio: " . $this->getDomicilio();
     }
 }
