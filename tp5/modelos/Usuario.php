@@ -50,7 +50,7 @@ class Usuario
     public function buscar(string $valor, string $where = 'idusuario')
     {
         $Conexion = new BaseDatos();
-        $consulta = "SELECT * FROM usuario WHERE $where = $valor";
+        $consulta = "SELECT * FROM usuario WHERE $where='$valor'";
 
         // Inicio conexión con la BD
         if (!$Conexion->Iniciar()) {
@@ -202,6 +202,33 @@ class Usuario
         }
 
         return true;
+    }
+
+    public static function validar_session(String $nombreUsuario, String $contraseña)
+    {
+        if (strlen($nombreUsuario) == 0 || strlen($contraseña) == 0)
+        {
+            return false;
+        }
+
+        $conexion = new BaseDatos();
+        $consulta = "SELECT idusuario FROM usuario WHERE usnombre='$nombreUsuario' AND uspass='$contraseña' LIMIT 1";
+
+        // Iniciamos conexión con la BD
+        if (!$conexion->Iniciar())
+        {
+            return false;
+        }
+
+        // Ejecutamos la consulta
+        if (!$conexion->Ejecutar($consulta))
+        {
+            return false;
+        }
+
+        // Verificamos si hay o no reguistro.
+        $row2 = $conexion->Registro();
+        return isset($row2['idusuario']);
     }
 
     // Métodos de acceso

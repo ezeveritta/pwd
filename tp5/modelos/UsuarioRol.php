@@ -78,9 +78,9 @@ class UsuarioRol
         $consulta = "SELECT * FROM usuariorol";
 
         if ($where != "")
-            $consulta .= " WHERE = $where";
+            $consulta .= " WHERE $where";
         if ($limite != "")
-            $consulta .= " LIMIT = $limite";
+            $consulta .= " LIMIT $limite";
 
         $consulta .= " ORDER BY $orden";
 

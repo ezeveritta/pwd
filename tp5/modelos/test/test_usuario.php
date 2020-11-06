@@ -28,7 +28,7 @@ $objUsuario2->cargar('testinsertar', '4321', 'em@ail.com', '');
 /////////////////////////////////////////////////////////////////////////////
 // MODIFICAR 
 $objUsuario3 = new Usuario();
-$objUsuario3->buscar(5);
+//$objUsuario3->buscar(5);
 $objUsuario3->set_nombre('modificado');
 $objUsuario3->set_deshabilitado('current_timestamp()');
 //echo $objUsuario3->modificar();
@@ -37,13 +37,18 @@ $objUsuario3->set_deshabilitado('current_timestamp()');
 /////////////////////////////////////////////////////////////////////////////
 // ELIMINAR 
 $objUsuario4 = new Usuario();
-$objUsuario4->buscar(5);
+//$objUsuario4->buscar(5);
 //echo $objUsuario4->eliminar();
 
 
 
 /////////////////////////////////////////////////////////////////////////////
 // LISTAR
-foreach (Usuario::listar() as $u) {
-    echo "<br><hr>$u";
-}
+//foreach (Usuario::listar() as $u) {
+//    echo "<br><hr>$u";
+//}
+
+
+////////////////////////////////////////////////////////////////////////////
+// validar_session
+echo (Usuario::validar_session('ezeveritta', '12321')) ? 'usuario encontrado' : 'usuario <b>no</b> encontrado';
