@@ -1,5 +1,8 @@
 <?php
 
+phpinfo();
+
+/*
 function folderToZip($folder, &$zipFile, $exclusiveLength)
 {
     $handle = opendir($folder);
@@ -20,19 +23,41 @@ function folderToZip($folder, &$zipFile, $exclusiveLength)
     closedir($handle);
 }
 
+$arreglo_items = ['item1.png'];
+// Definimos la ruta donde crear el archivo comprimido
 
-$folder = 'public';
-$zip = new ZipArchive();
+$rutaDestino = "temp";
+$rutaArchivos = "test";
 $exclusiveLength = 0;
 
-$filename = 'public.zip';
+// Definimos las variables a utilizar
+$ZIP = new ZipArchive();
+$fecha = new DateTime();
+$nombreZip = 'FiDrive_descarga_' . $fecha->format("Y-m-d_H-i-s") . '.zip';
 
-if ($zip->open($filename, ZIPARCHIVE::CREATE) === true) {
-    folderToZip($folder, $zip, $exclusiveLength);
-    $zip->close();
-    echo 'Creado ' . $filename;
+if ($ZIP->open($rutaDestino.'/'.$nombreZip, ZIPARCHIVE::CREATE) === true) {
+    
+    // Añadimos los archivos
+    foreach ($arreglo_items as $item)
+    {
+        $ruta = $rutaArchivos . '/' . $item;
+        // Si es una carpeta, utilzamos la función para añadir una carpeta completa
+        if (is_dir($ruta))
+        {
+            folderToZip($ruta, $ZIP, $exclusiveLength);
+        } 
+        // Si es un archivo, lo añadimos
+        else
+        {
+            $ZIP->addFile($item);
+        }
+    }
+    
+    // Guardamos el archivo
+    $ZIP->close();
+    echo 'Creado ' . $nombreZip;
 } else {
-    echo 'Error creando ' . $filename;
+    echo 'Error creando ' . $nombreZip;
 }
 
-?>
+?>*/
